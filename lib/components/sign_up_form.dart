@@ -10,8 +10,10 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _signupFormKey = GlobalKey<FormState>();
-  final _email_controller = TextEditingController();
-  final _password_controller = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
 
   bool checkbox(value) {
     return true;
@@ -23,13 +25,13 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _signupFormKey,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 46,
             child: Row(
               children: [
                 Expanded(
                   child: TextFormField(
-                    controller: _email_controller,
+                    controller: _firstnameController,
                     decoration: InputDecoration(
                         labelText: 'Firstname',
                         border: OutlineInputBorder(
@@ -37,12 +39,12 @@ class _SignUpFormState extends State<SignUpForm> {
                         )),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Expanded(
                   child: TextFormField(
-                    controller: _email_controller,
+                    controller: _lastnameController,
                     decoration: InputDecoration(
                         labelText: 'Lastname',
                         border: OutlineInputBorder(
@@ -53,11 +55,11 @@ class _SignUpFormState extends State<SignUpForm> {
               ],
             ),
           ),
-          SizedBox(height: 30,),
-          Container(
+          const SizedBox(height: 30,),
+         SizedBox(
             height: 46,
             child: TextFormField(
-              controller: _email_controller,
+              controller: _emailController,
               decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
@@ -66,10 +68,10 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ),
           const SizedBox(height: 30),
-          Container(
+          SizedBox(
             height: 46,
             child: TextFormField(
-              controller: _password_controller,
+              controller: _passwordController,
               obscureText: true,
               decoration: InputDecoration(
                   labelText: 'Password',
@@ -77,26 +79,8 @@ class _SignUpFormState extends State<SignUpForm> {
                     borderRadius: BorderRadius.circular(10.0),
                   )),
             ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Checkbox(value: false, onChanged: checkbox),
-                  const Text('Remember me.')
-                ],
-              ),
-              TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Forgot password?',
-                    style: TextStyle(color: Colors.grey),
-                  )),
-            ],
-          ),
-          const SizedBox(height: 10),
+          ),          
+          const SizedBox(height: 30),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: MaterialButton(
@@ -106,7 +90,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 height: 46,
                 color: Colors.pinkAccent.shade100,
                 child: const Text(
-                  'Login',
+                  'Sign Up',
                   style: TextStyle(color: Colors.white),
                 )),
           ),
@@ -117,7 +101,7 @@ class _SignUpFormState extends State<SignUpForm> {
               const Text("Already have an account?"),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed('/login');
                 },
                 child: const Text(
                   'Sign In.',
@@ -127,8 +111,9 @@ class _SignUpFormState extends State<SignUpForm> {
             ],
           ),
           const Text('OR'),
+          const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 6),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6), border: Border.all()),
             child: Row(
@@ -141,13 +126,13 @@ class _SignUpFormState extends State<SignUpForm> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.blue),
-                    child: FaIcon(
+                    child: const FaIcon(
                       FontAwesomeIcons.google,
                       size: 16,
                       color: Colors.white,
                     )),
-                SizedBox(width: 5),
-                Text('Sign Up with Google'),
+                const SizedBox(width: 5),
+                const Text('Sign Up with Google'),
               ],
             ),
           ),
@@ -155,7 +140,7 @@ class _SignUpFormState extends State<SignUpForm> {
             height: 10,
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 6),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             decoration: BoxDecoration(
               border: Border.all(),
               borderRadius: BorderRadius.circular(6),
@@ -170,13 +155,13 @@ class _SignUpFormState extends State<SignUpForm> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.blue),
-                    child: FaIcon(
+                    child: const FaIcon(
                       FontAwesomeIcons.facebookF,
                       size: 16,
                       color: Colors.white,
                     )),
-                SizedBox(width: 5),
-                Text('Sign Up with Facebook'),
+                const SizedBox(width: 5),
+                const Text('Sign Up with Facebook'),
               ],
             ),
           ),

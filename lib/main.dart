@@ -1,4 +1,7 @@
+import 'package:amredi/pages/edit_profile_page.dart';
 import 'package:amredi/pages/login_page.dart';
+import 'package:amredi/pages/main_page.dart';
+import 'package:amredi/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,6 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MainPage(),
+        '/signup': (context) => const SignUpPage(),
+        '/login': (context)=>  const LoginPage(),
+        '/profile': (context)=> const ProfilePage()
+        },
       title: 'Amredi',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -18,7 +28,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto',
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      // home: const LoginPage(),
     );
   }
 }

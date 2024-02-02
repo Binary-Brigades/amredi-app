@@ -8,24 +8,27 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  color: Colors.red,
-                  child: Image.asset('images/image1.png'),
-                ),
-                SizedBox(height: 10),
-                const Text(
-                  'Create Your Account',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                SignUpForm(),
-              ]),
+        body: ListView(
+          children: [Container(
+            margin: const EdgeInsets.only(top:100),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    color: Colors.red,
+                    child: Image.asset('images/image1.png'),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Create Your Account',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  const SignUpForm(),
+                ]),
+          ),]
         ));
   }
 }

@@ -9,7 +9,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -18,12 +18,12 @@ class LoginPage extends StatelessWidget {
                   color: Colors.red,
                   child: Image.asset('images/image1.png'),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 const Text(
                   'Login To Your Account',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 const LoginForm(),
               ]),
         ));
