@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const MainPage(),
         '/signup': (context) => const SignUpPage(),
-        '/login': (context)=>  const LoginPage(),
-        '/profile': (context)=> const ProfilePage()
-        },
+        '/login': (context) => const LoginPage(),
+        '/profile': (context) => const ProfilePage()
+      },
       title: 'Amredi',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
