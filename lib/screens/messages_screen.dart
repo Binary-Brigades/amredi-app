@@ -1,8 +1,29 @@
-import 'package:amredi/components/message_tile.dart';
+import 'package:amredi/widgets/chat_tab.dart';
+import 'package:amredi/widgets/group_tab.dart';
 import 'package:flutter/material.dart';
 
-class MessageScreen extends StatelessWidget {
+class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
+
+  @override
+  State<MessageScreen> createState() => _MessageScreenState();
+}
+
+
+
+class _MessageScreenState extends State<MessageScreen> {
+  bool isChat = true;
+
+  void change(bool chat) {
+    setState(() {
+      isChat = chat;
+    });
+  }
+
+  Widget changeTab() {
+    return isChat ? const ChatTab() : const GroupTab();
+  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -30,26 +51,37 @@ class MessageScreen extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                        child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      decoration: BoxDecoration(
-                          color: Colors.pinkAccent.shade100,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Text('Messages'),
+                        child: GestureDetector(
+                      onTap: () {
+                        change(true);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                            color: Colors.pinkAccent.shade100,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Text('Messages'),
+                      ),
                     )),
                     const SizedBox(
                       width: 20,
                     ),
                     Expanded(
-                        child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      decoration: BoxDecoration(
+                        child: GestureDetector(
+                      onTap: () {
+                        change(false);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all()),
-                      child: const Text('Groups'),
+                          border: Border.all(),
+                        ),
+                        child: const Text('Groups'),
+                      ),
                     )),
                   ],
                 )
@@ -60,12 +92,7 @@ class MessageScreen extends StatelessWidget {
             height: 20,
           ),
           Expanded(
-            child: ListView.separated(
-              itemCount: 10,
-              itemBuilder: (context, index) => const MessageTile(),
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(color: Colors.pink),
-            ),
+            child: changeTab(),
           )
         ],
       ),

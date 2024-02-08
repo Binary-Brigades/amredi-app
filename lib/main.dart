@@ -1,6 +1,7 @@
-import 'package:amredi/pages/edit_profile_page.dart';
 import 'package:amredi/pages/login_page.dart';
 import 'package:amredi/pages/main_page.dart';
+import 'package:amredi/pages/notifications.dart';
+import 'package:amredi/pages/post_page.dart';
 import 'package:amredi/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const MainPage(),
         '/signup': (context) => const SignUpPage(),
         '/login': (context) => const LoginPage(),
-        '/profile': (context) => const ProfilePage()
+        '/notifications': (context) => const NotificationScreen(),
+        '/post': (context) => const PostPage()
       },
       title: 'Amredi',
       debugShowCheckedModeBanner: false,

@@ -70,8 +70,7 @@ class _LoginFormState extends State<LoginForm> {
             borderRadius: BorderRadius.circular(10),
             child: MaterialButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed('/');
+                  Navigator.of(context).pushNamed('/');
                 },
                 minWidth: MediaQuery.of(context).size.width,
                 elevation: 0,

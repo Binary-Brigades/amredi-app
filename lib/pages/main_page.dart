@@ -1,6 +1,7 @@
+import 'package:amredi/screens/edit_profile_page.dart';
 import 'package:amredi/screens/home_screen.dart';
 import 'package:amredi/screens/messages_screen.dart';
-import 'package:amredi/screens/notifications.dart';
+import 'package:amredi/screens/posts_screen.dart';
 import 'package:amredi/screens/resources_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,14 +16,16 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const ResourceScreen(),
+    const Posts(),
     const MessageScreen(),
-    const NotificationScreen()
+    const ProfilePage()
   ];
   final List<Widget> _title = [
     Image.asset('images/image1.png'),
-    const Text('Resources'),
+    const Text('Projects'),
+    const Text('Posts'),
     const Text('Messages'),
-    const Text('Notifications')
+    const Text('Profile')
   ];
   int _selectedIndex = 0;
   void changeTab(index) {
@@ -34,69 +37,29 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
-        title: _title[_selectedIndex],
-      ),
+          centerTitle: true,
+          title: _title[_selectedIndex],
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/notifications');
+              },
+              icon: const Icon(Icons.notifications_outlined),
+            ),
+            const SizedBox(width: 10,)
+          ],
+          backgroundColor: Colors.white,
+          elevation: 0),
       body: _pages[_selectedIndex],
-      drawer: Drawer(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 48),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                          color: Colors.pinkAccent.shade100,
-                          borderRadius: BorderRadius.circular(40))),
-                  ListTile(
-                    title: const Text('Profile'),
-                    leading: const Icon(Icons.person_rounded),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pushNamed('/profile');
-                    },
-                  ),
-                  const ListTile(
-                    title: Text('Resources'),
-                    leading: Icon(Icons.folder_copy_rounded),
-                  ),
-                  const ListTile(
-                    title: Text('Community'),
-                    leading: Icon(Icons.people_rounded),
-                  ),
-                  const ListTile(
-                    title: Text('Support'),
-                    leading: Icon(Icons.info_outline),
-                  ),
-                  const ListTile(
-                    title: Text('Settings'),
-                    leading: Icon(Icons.settings),
-                  ),
-                ],
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: MaterialButton(
-                    onPressed: () {},
-                    minWidth: MediaQuery.of(context).size.width,
-                    elevation: 0,
-                    height: 46,
-                    color: Colors.pinkAccent.shade100,
-                    child: const Text(
-                      'Sign Out',
-                      style: TextStyle(color: Colors.white),
-                    )),
-              ),
-            ],
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(
+            Icons.post_add_outlined,
           ),
-        ),
-      ),
+          onPressed: () {
+            Navigator.of(context).pushNamed('/post');
+          }),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: changeTab,
@@ -108,20 +71,25 @@ class _MainPageState extends State<MainPage> {
           showUnselectedLabels: false,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded),
-                label: 'Home',),
+              icon: Icon(Icons.home_rounded),
+              label: 'Home',
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.folder_copy_rounded),
-                label: 'Resources',
-                ),
+              icon: Icon(Icons.folder_copy_rounded),
+              label: 'Projects',
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.chat_bubble),
-                label: 'messages',
-                ),
+              icon: Icon(Icons.list_alt),
+              label: 'Projects',
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_outlined),
-                label: 'Notifications',
-                ),
+              icon: Icon(Icons.chat_bubble),
+              label: 'messages',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_rounded),
+              label: 'Profile',
+            ),
           ]),
     );
   }
