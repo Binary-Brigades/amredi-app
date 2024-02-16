@@ -17,6 +17,10 @@ class ProjectDetail extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.pinkAccent.shade100,
               borderRadius: BorderRadius.circular(10)),
+          child: Image.asset('images/chickenPro.jpg',
+              fit: BoxFit.cover,
+              height: 250,
+              width: MediaQuery.of(context).size.width),
         ),
         const SizedBox(
           height: 12,

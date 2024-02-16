@@ -22,27 +22,45 @@ class HomeScreen extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const Column(
+        Column(
           children: [
             Row(
               children: [
-                Expanded(child: Activity()),
-                SizedBox(
+                Expanded(
+                    child: Activity(
+                  activity: 'Connect',
+                  child: Image.asset('images/connect.jpg'),
+                )),
+                const SizedBox(
                   width: 10,
                 ),
-                Expanded(child: Activity()),
+                Expanded(
+                    child: Activity(
+                  activity: 'Projects',
+                  child: Image.asset('images/idea1.jpg'),
+                )),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               children: [
-                Expanded(child: Activity()),
-                SizedBox(
+                Expanded(
+                    child: Activity(
+                  activity: 'Talk To Amina',
+                  child: Image.asset(
+                    'images/amina.jpg',
+                  ),
+                )),
+                const SizedBox(
                   width: 10,
                 ),
-                Expanded(child: Activity()),
+                Expanded(
+                    child: Activity(
+                  activity: 'Success Stories',
+                  child: Image.asset('images/connect.jpg'),
+                )),
               ],
             ),
           ],

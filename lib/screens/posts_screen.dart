@@ -1,14 +1,36 @@
 import 'package:amredi/components/post.dart';
+import 'package:amredi/providers/post_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Posts extends StatelessWidget {
+class Posts extends ConsumerWidget {
   const Posts({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      itemCount: 10,
-      itemBuilder: ((context, index) => const Post()));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final data = ref.watch(postsProvider);
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: data.when(data: (data) {
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            itemCount: data.length,
+            itemBuilder: ((context, index) => Post(
+              likes: data[index].likes.length,
+              description: data[index].description,
+              url: data[index].imageUrl,
+              user: data[index].createdBy,
+              time: data[index].time
+            )),
+          );
+        }, error: (Object error, StackTrace stackTrace) {
+          return  Center(
+            child: Text(stackTrace.toString()),
+          );
+        }, loading: () {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }));
   }
 }

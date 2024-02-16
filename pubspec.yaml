@@ -16,12 +16,16 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   flutter_riverpod: ^2.4.9
   hive_flutter: ^1.1.0
+  image_picker: ^1.0.7
+  http: ^1.2.0
+  location: ^5.0.0
+  permission_handler: ^11.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 
 flutter:
@@ -30,7 +34,7 @@ flutter:
 
   
   assets:
-    - images/image1.png
+    - images/
   #   - images/a_dot_ham.jpeg
 
   fonts:

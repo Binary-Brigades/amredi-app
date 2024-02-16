@@ -7,25 +7,32 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  color: Colors.red,
-                  child: Image.asset('images/image1.png'),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Login To Your Account',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                const LoginForm(),
-              ]),
-        ));
+      body: Column(
+          // backgroundColor: Colors.white,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ListView(
+                  // physics: const FixedExtentScrollPhysics(),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      child: Image.asset('images/image1.png'),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Login To Your Account',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 24),
+                    ),
+                    const SizedBox(height: 10),
+                    LoginForm(),
+                  ]),
+            )
+          ]),
+    );
   }
 }

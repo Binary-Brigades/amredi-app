@@ -4,6 +4,7 @@ import 'package:amredi/screens/messages_screen.dart';
 import 'package:amredi/screens/posts_screen.dart';
 import 'package:amredi/screens/resources_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -34,6 +35,8 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  final mybox = Hive.box('myBox');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +51,16 @@ class _MainPageState extends State<MainPage> {
               },
               icon: const Icon(Icons.notifications_outlined),
             ),
-            const SizedBox(width: 10,)
+            IconButton(
+              onPressed: () {
+                mybox.delete("TOKEN");
+                Navigator.of(context).pushReplacementNamed('/login');
+              },
+              icon: const Icon(Icons.logout_outlined),
+            ),
+            const SizedBox(
+              width: 10,
+            )
           ],
           backgroundColor: Colors.white,
           elevation: 0),

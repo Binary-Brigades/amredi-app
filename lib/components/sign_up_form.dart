@@ -1,30 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class SignUpForm extends StatefulWidget {
-  const SignUpForm({super.key});
+class SignUpForm extends ConsumerWidget {
+  SignUpForm({super.key});
 
-  @override
-  State<SignUpForm> createState() => _SignUpFormState();
-}
-
-class _SignUpFormState extends State<SignUpForm> {
   final _signupFormKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
+
   final _passwordController = TextEditingController();
+
   final _firstnameController = TextEditingController();
+
   final _lastnameController = TextEditingController();
 
   bool checkbox(value) {
     return true;
   }
 
+  Future<void> requestPermission() async {
+    // Request location permission
+    var status = await Permission.location.request();
+    if (status.isDenied) {
+      // Permission denied
+      // Handle the situation accordingly
+    }
+  }
+
+  Future<bool> checkPermission() async {
+    var status = await Permission.location.status;
+    return status.isGranted;
+  }
+
+  Future<LocationData?> getLocation() async {
+    var location = Location();
+    try {
+      return await location.getLocation();
+    } catch (e) {
+      // Handle any errors that might occur
+      return null;
+    }
+  }
+
+  Future<Widget> loc() async {
+    LocationData? locationData = await getLocation();
+    if (locationData != null) {
+      return Text(
+          'Latitude: ${locationData.latitude}, Longitude: ${locationData.longitude}');
+    } else {
+      return const Text('Failed to get location');
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Form(
       key: _signupFormKey,
       child: Column(
         children: [
+          Text(getLocation().toString()),
           SizedBox(
             height: 46,
             child: Row(
@@ -55,8 +92,10 @@ class _SignUpFormState extends State<SignUpForm> {
               ],
             ),
           ),
-          const SizedBox(height: 30,),
-         SizedBox(
+          const SizedBox(
+            height: 30,
+          ),
+          SizedBox(
             height: 46,
             child: TextFormField(
               controller: _emailController,
@@ -79,7 +118,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     borderRadius: BorderRadius.circular(10.0),
                   )),
             ),
-          ),          
+          ),
           const SizedBox(height: 30),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),

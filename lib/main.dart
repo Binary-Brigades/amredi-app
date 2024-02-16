@@ -4,9 +4,13 @@ import 'package:amredi/pages/notifications.dart';
 import 'package:amredi/pages/post_page.dart';
 import 'package:amredi/pages/signup_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox('myBox');
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,10 +18,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mybox = Hive.box('myBox');
+    final token = mybox.get('TOKEN');
+    // debugpr/
+    // print(token);
     return MaterialApp(
-      initialRoute: '/',
       routes: {
-        '/': (context) => const MainPage(),
+        '/home': (context)=>const MainPage(),
         '/signup': (context) => const SignUpPage(),
         '/login': (context) => const LoginPage(),
         '/notifications': (context) => const NotificationScreen(),
@@ -25,6 +32,7 @@ class MyApp extends StatelessWidget {
       },
       title: 'Amredi',
       debugShowCheckedModeBanner: false,
+      home: token == null ? const LoginPage() : const MainPage(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink.shade100),
         fontFamily: 'Roboto',

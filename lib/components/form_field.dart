@@ -1,62 +1,73 @@
+import 'package:amredi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class LoginForm extends ConsumerWidget {
+  // const LoginForm({super.key});
 
-  @override
-  State<LoginForm> createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
   final _loginFormKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
+
   final _passwordController = TextEditingController();
+
+  LoginForm({super.key});
 
   bool checkbox(value) {
     return true;
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mybox = Hive.box('myBox');
+    // final token = mybox.get('TOKEN');
+    // print(token);
     return Form(
       key: _loginFormKey,
       child: Column(
         children: [
-          SizedBox(
-            height: 46,
-            child: TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  )),
-            ),
+          TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            controller: _emailController,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Email is required";
+              } else {
+                return '';
+              }
+            },
+            decoration: InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  gapPadding: 4,
+                )),
           ),
           const SizedBox(height: 30),
-          SizedBox(
-            height: 46,
-            child: TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  )),
+          TextFormField(
+            controller: _passwordController,
+            obscureText: true,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Password is required";
+              } else {
+                return '';
+              }
+            },
+            decoration: InputDecoration(
+              labelText: 'Password',
+              border: OutlineInputBorder(
+                gapPadding: 4,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
             ),
           ),
           const SizedBox(height: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Row(
-                children: [
-                  Checkbox(value: false, onChanged: checkbox),
-                  const Text('Remember me.')
-                ],
-              ),
               TextButton(
                   onPressed: () {},
                   child: const Text(
@@ -69,8 +80,22 @@ class _LoginFormState extends State<LoginForm> {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: MaterialButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/');
+                onPressed: () async {
+                  // _loginFormKey.currentState!.validate();
+                  _loginFormKey.currentState!.validate();
+                  print("$_passwordController.text");
+                  final x = await ref
+                      .watch(loginProvide)
+                      .login(_emailController.text, _passwordController.text);
+                  print("_passwordController.text");
+                  mybox.put("TOKEN", x["access_token"]);
+                  print(x);
+                  if (x["status"] == "success") {
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  } else if (x["status"] == 401) {
+                    print("jhgf");
+                  }
                 },
                 minWidth: MediaQuery.of(context).size.width,
                 elevation: 0,

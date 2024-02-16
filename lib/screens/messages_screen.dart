@@ -9,13 +9,37 @@ class MessageScreen extends StatefulWidget {
   State<MessageScreen> createState() => _MessageScreenState();
 }
 
-
-
 class _MessageScreenState extends State<MessageScreen> {
   bool isChat = true;
+  Decoration messageDecoration = BoxDecoration(
+      color: Colors.pinkAccent.shade100,
+      borderRadius: BorderRadius.circular(10));
+  Decoration groupDecoration = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(10),
+    border: Border.all(),
+  );
 
   void change(bool chat) {
     setState(() {
+      if (chat) {
+        messageDecoration = BoxDecoration(
+            color: Colors.pinkAccent.shade100,
+            borderRadius: BorderRadius.circular(10));
+        groupDecoration = BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(),
+        );
+      } else {
+        groupDecoration = messageDecoration;
+        messageDecoration = BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(),
+        );
+      }
+
       isChat = chat;
     });
   }
@@ -23,7 +47,6 @@ class _MessageScreenState extends State<MessageScreen> {
   Widget changeTab() {
     return isChat ? const ChatTab() : const GroupTab();
   }
- 
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +81,7 @@ class _MessageScreenState extends State<MessageScreen> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(vertical: 8),
-                        decoration: BoxDecoration(
-                            color: Colors.pinkAccent.shade100,
-                            borderRadius: BorderRadius.circular(10)),
+                        decoration: messageDecoration,
                         child: const Text('Messages'),
                       ),
                     )),
@@ -75,11 +96,7 @@ class _MessageScreenState extends State<MessageScreen> {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(vertical: 8),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(),
-                        ),
+                        decoration: groupDecoration,
                         child: const Text('Groups'),
                       ),
                     )),

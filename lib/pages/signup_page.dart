@@ -16,17 +16,14 @@ class SignUpPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    color: Colors.red,
-                    child: Image.asset('images/image1.png'),
-                  ),
+                  Image.asset('images/image1.png'),
                   const SizedBox(height: 10),
                   const Text(
                     'Create Your Account',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  const SignUpForm(),
+                  SignUpForm(),
                 ]),
           ),]
         ));
