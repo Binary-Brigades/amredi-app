@@ -83,7 +83,7 @@ class LoginForm extends ConsumerWidget {
                 onPressed: () async {
                   // _loginFormKey.currentState!.validate();
                   _loginFormKey.currentState!.validate();
-                  print("$_passwordController.text");
+                  print("$_emailController.text");
                   final x = await ref
                       .watch(loginProvide)
                       .login(_emailController.text, _passwordController.text);
@@ -92,9 +92,34 @@ class LoginForm extends ConsumerWidget {
                   print(x);
                   if (x["status"] == "success") {
                     // ignore: use_build_context_synchronously
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: const Text(
+                        'Login Success!!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.green[300],
+                      margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width / 4,
+                          top: 10,
+                          right: MediaQuery.of(context).size.width / 4,
+                          bottom: MediaQuery.of(context).size.height - 100),
+                      behavior: SnackBarBehavior.floating,
+                    ));
                     Navigator.of(context).pushReplacementNamed('/home');
                   } else if (x["status"] == 401) {
-                    print("jhgf");
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: const Text(
+                        'Invalid username or password!!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.red[300],
+                      margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width / 4,
+                          top: 10,
+                          right: MediaQuery.of(context).size.width / 4,
+                          bottom: MediaQuery.of(context).size.height - 100),
+                      behavior: SnackBarBehavior.floating,
+                    ));
                   }
                 },
                 minWidth: MediaQuery.of(context).size.width,

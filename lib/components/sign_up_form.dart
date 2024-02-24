@@ -45,14 +45,20 @@ class SignUpForm extends ConsumerWidget {
     }
   }
 
-  Future<Widget> loc() async {
+  Future<String> loc() async {
     LocationData? locationData = await getLocation();
+    print(locationData);
     if (locationData != null) {
-      return Text(
-          'Latitude: ${locationData.latitude}, Longitude: ${locationData.longitude}');
+      return 'Latitude: ${locationData.latitude}, Longitude: ${locationData.longitude}';
     } else {
-      return const Text('Failed to get location');
+      return "no locatin";
     }
+    // if (locationData != null) {
+    //   return Text(
+    //       'Latitude: ${locationData.latitude}, Longitude: ${locationData.longitude}');
+    // } else {
+    //   return const Text('Failed to get location');
+    // }
   }
 
   @override
@@ -123,7 +129,9 @@ class SignUpForm extends ConsumerWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: MaterialButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await loc();
+                },
                 minWidth: MediaQuery.of(context).size.width,
                 elevation: 0,
                 height: 46,

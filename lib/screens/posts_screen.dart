@@ -12,19 +12,24 @@ class Posts extends ConsumerWidget {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: data.when(data: (data) {
-          return ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            itemCount: data.length,
-            itemBuilder: ((context, index) => Post(
-              likes: data[index].likes.length,
-              description: data[index].description,
-              url: data[index].imageUrl,
-              user: data[index].createdBy,
-              time: data[index].time
-            )),
-          );
+          if (data.length > 0) {
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              itemCount: data.length,
+              itemBuilder: ((context, index) => Post(
+                  likes: data[index].likes.length,
+                  description: data[index].description,
+                  url: data[index].imageUrl,
+                  user: data[index].createdBy,
+                  time: data[index].time)),
+            );
+          } else {
+            return Center(
+              child: Text("No posts found"),
+            );
+          }
         }, error: (Object error, StackTrace stackTrace) {
-          return  Center(
+          return Center(
             child: Text(stackTrace.toString()),
           );
         }, loading: () {
