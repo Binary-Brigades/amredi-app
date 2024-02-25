@@ -24,11 +24,11 @@ class MyApp extends StatelessWidget {
     // print(token);
     return MaterialApp(
       routes: {
-        '/home': (context)=>const MainPage(),
+        '/home': (context) => const MainPage(),
         '/signup': (context) => const SignUpPage(),
         '/login': (context) => const LoginPage(),
         '/notifications': (context) => const NotificationScreen(),
-        '/post': (context) => const PostPage()
+        '/post': (context) => PostPage()
       },
       title: 'Amredi',
       debugShowCheckedModeBanner: false,

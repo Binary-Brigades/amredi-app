@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Post extends StatelessWidget {
-  final String url;
+  final String? url;
   final DateTime time;
   final int likes;
   final String description;
@@ -36,8 +36,10 @@ class Post extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(user), Text(
-                 "${-time.day + DateTime.now().day} days ago")],
+                children: [
+                  Text(user),
+                  Text("${-time.day + DateTime.now().day} days ago")
+                ],
               ),
             ],
           ),
@@ -52,11 +54,13 @@ class Post extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(description),
-                Expanded(
-                    child: Image.network(
-                  url,
-                  width: MediaQuery.of(context).size.width,
-                )),
+                url == null
+                    ? Container()
+                    : Expanded(
+                        child: Image.network(
+                        url!,
+                        width: MediaQuery.of(context).size.width,
+                      )),
               ],
             ),
           ),

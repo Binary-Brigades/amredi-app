@@ -83,13 +83,10 @@ class LoginForm extends ConsumerWidget {
                 onPressed: () async {
                   // _loginFormKey.currentState!.validate();
                   _loginFormKey.currentState!.validate();
-                  print("$_emailController.text");
                   final x = await ref
                       .watch(loginProvide)
                       .login(_emailController.text, _passwordController.text);
-                  print("_passwordController.text");
                   mybox.put("TOKEN", x["access_token"]);
-                  print(x);
                   if (x["status"] == "success") {
                     // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:amredi/providers/user_provider.dart';
 
 class SignUpForm extends ConsumerWidget {
   SignUpForm({super.key});
@@ -12,10 +13,12 @@ class SignUpForm extends ConsumerWidget {
   final _emailController = TextEditingController();
 
   final _passwordController = TextEditingController();
+  final _cpasswordController = TextEditingController();
 
   final _firstnameController = TextEditingController();
 
   final _lastnameController = TextEditingController();
+  final _phoneController = TextEditingController();
 
   bool checkbox(value) {
     return true;
@@ -45,13 +48,12 @@ class SignUpForm extends ConsumerWidget {
     }
   }
 
-  Future<String> loc() async {
+  Future<List<double?>> loc() async {
     LocationData? locationData = await getLocation();
-    print(locationData);
     if (locationData != null) {
-      return 'Latitude: ${locationData.latitude}, Longitude: ${locationData.longitude}';
+      return [locationData.latitude, locationData.longitude];
     } else {
-      return "no locatin";
+      return [];
     }
     // if (locationData != null) {
     //   return Text(
@@ -63,11 +65,12 @@ class SignUpForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var register = ref.watch(registerProvider);
     return Form(
       key: _signupFormKey,
       child: Column(
         children: [
-          Text(getLocation().toString()),
+          // Text(getLocation().toString()),
           SizedBox(
             height: 46,
             child: Row(
@@ -75,6 +78,7 @@ class SignUpForm extends ConsumerWidget {
                 Expanded(
                   child: TextFormField(
                     controller: _firstnameController,
+                    keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                         labelText: 'Firstname',
                         border: OutlineInputBorder(
@@ -88,6 +92,7 @@ class SignUpForm extends ConsumerWidget {
                 Expanded(
                   child: TextFormField(
                     controller: _lastnameController,
+                    keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                         labelText: 'Lastname',
                         border: OutlineInputBorder(
@@ -105,8 +110,22 @@ class SignUpForm extends ConsumerWidget {
             height: 46,
             child: TextFormField(
               controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                   labelText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  )),
+            ),
+          ),
+          const SizedBox(height: 30),
+          SizedBox(
+            height: 46,
+            child: TextFormField(
+              controller: _phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                  labelText: 'Phone Number',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   )),
@@ -126,11 +145,47 @@ class SignUpForm extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 30),
+          SizedBox(
+            height: 46,
+            child: TextFormField(
+              controller: _cpasswordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                  labelText: 'Confirm Password',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  )),
+            ),
+          ),
+          const SizedBox(height: 30),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: MaterialButton(
                 onPressed: () async {
-                  await loc();
+                  var location = await loc();
+                  var data = await register.register(
+                      _emailController.text,
+                      _passwordController.text,
+                      _firstnameController.text,
+                      _lastnameController.text,
+                      _phoneController.text,
+                      location,
+                      _cpasswordController.text);
+                      if(data['status']=="success"){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: const Text(
+                        'Register Success!!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.green[300],
+                      margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width / 4,
+                          top: 10,
+                          right: MediaQuery.of(context).size.width / 4,
+                          bottom: MediaQuery.of(context).size.height - 100),
+                      behavior: SnackBarBehavior.floating,
+                    ));
+                      }
                 },
                 minWidth: MediaQuery.of(context).size.width,
                 elevation: 0,

@@ -5,7 +5,7 @@ class Post {
   final String description;
   final String createdBy;
   final List<String> likes;
-  final String imageUrl;
+  String? imageUrl;
   final DateTime time;
 
   Post({

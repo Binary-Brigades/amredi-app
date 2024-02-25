@@ -9,6 +9,7 @@ class Posts extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(postsProvider);
+    print(data);
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: data.when(data: (data) {
@@ -30,7 +31,7 @@ class Posts extends ConsumerWidget {
           }
         }, error: (Object error, StackTrace stackTrace) {
           return Center(
-            child: Text(stackTrace.toString()),
+            child: Text(error.toString()),
           );
         }, loading: () {
           return const Center(
