@@ -25,13 +25,8 @@ class PostPage extends ConsumerWidget {
                     style: const TextStyle(color: Colors.white),
                   ),
                   backgroundColor: Colors.green[300],
-                  margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width / 4,
-                      top: 10,
-                      right: MediaQuery.of(context).size.width / 4,
-                      bottom: MediaQuery.of(context).size.height - 100),
-                  behavior: SnackBarBehavior.floating,
                 ));
+                Navigator.of(context).pop();
               }
             },
             child: const Text('Post'),

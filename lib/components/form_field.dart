@@ -95,11 +95,7 @@ class LoginForm extends ConsumerWidget {
                         style: TextStyle(color: Colors.white),
                       ),
                       backgroundColor: Colors.green[300],
-                      margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width / 4,
-                          top: 10,
-                          right: MediaQuery.of(context).size.width / 4,
-                          bottom: MediaQuery.of(context).size.height - 100),
+                      duration: const Duration(seconds: 1),
                       behavior: SnackBarBehavior.floating,
                     ));
                     Navigator.of(context).pushReplacementNamed('/home');
@@ -110,11 +106,7 @@ class LoginForm extends ConsumerWidget {
                         style: TextStyle(color: Colors.white),
                       ),
                       backgroundColor: Colors.red[300],
-                      margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width / 4,
-                          top: 10,
-                          right: MediaQuery.of(context).size.width / 4,
-                          bottom: MediaQuery.of(context).size.height - 100),
+                      duration: const Duration(seconds: 1),
                       behavior: SnackBarBehavior.floating,
                     ));
                   }

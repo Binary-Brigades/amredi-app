@@ -42,6 +42,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+          leading: Container(),
           centerTitle: true,
           title: _title[_selectedIndex],
           actions: [

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:amredi/models/post_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'dart:js';
 import 'package:hive_flutter/hive_flutter.dart';
 
 final mybox = Hive.box('myBox');
@@ -51,10 +50,10 @@ class ApiService {
       List<double?> location, // Change the type of location to List<dynamic>
       String confirmPassword) async {
     // Construct the location map
-    Map<String, dynamic> locationMap = {
-      "type": "Point",
-      "coordinates": location
-    };
+    // Map<String, dynamic> locationMap = {
+    //   "type": "Point",
+    //   "coordinates": location
+    // };
 
     // Construct the request body
     Map<String, dynamic> requestBody = {
@@ -64,22 +63,18 @@ class ApiService {
       "phone_number": phoneNumber,
       "first_name": firstName,
       "last_name": lastName,
-      "location":
-          JsObject.jsify(locationMap) // Pass locationMap instead of location
+      "location": {"type": "Point", "coordinates": location}
     };
-
     print("request $requestBody");
 
     // Send the POST request
     Response res = await http.post(Uri.parse(registerUrl), body: requestBody);
     print(res.body);
-
-    // Handle the response
     if (res.statusCode == 201) {
       final Map<dynamic, dynamic> user = json.decode(res.body);
       return user;
     } else {
-      throw Exception("Failed to register user: ${res.reasonPhrase}");
+      return {"error": "error occured"};
     }
   }
 

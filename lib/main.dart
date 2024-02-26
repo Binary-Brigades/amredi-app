@@ -3,6 +3,7 @@ import 'package:amredi/pages/main_page.dart';
 import 'package:amredi/pages/notifications.dart';
 import 'package:amredi/pages/post_page.dart';
 import 'package:amredi/pages/signup_page.dart';
+import 'package:amredi/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -28,17 +29,18 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => const SignUpPage(),
         '/login': (context) => const LoginPage(),
         '/notifications': (context) => const NotificationScreen(),
-        '/post': (context) => PostPage()
+        '/post': (context) => PostPage(),
+        '/chat': (context) => const ChatScreen(),
       },
       title: 'Amredi',
       debugShowCheckedModeBanner: false,
-      home: token == null ? const LoginPage() : const MainPage(),
+      // home: token == null ? const LoginPage() : const MainPage(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink.shade100),
         fontFamily: 'Roboto',
         useMaterial3: true,
       ),
-      // home: const LoginPage(),
+      home: const ChatScreen(),
     );
   }
 }
