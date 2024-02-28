@@ -34,13 +34,13 @@ class MyApp extends StatelessWidget {
       },
       title: 'Amredi',
       debugShowCheckedModeBanner: false,
-      // home: token == null ? const LoginPage() : const MainPage(),
+      home: token == null ? const LoginPage() : const MainPage(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink.shade100),
         fontFamily: 'Roboto',
         useMaterial3: true,
       ),
-      home: const ChatScreen(),
+      // home: const ChatScreen(),
     );
   }
 }

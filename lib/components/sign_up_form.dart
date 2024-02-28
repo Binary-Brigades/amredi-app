@@ -1,3 +1,4 @@
+import 'package:amredi/pages/verify_account.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -51,7 +52,7 @@ class SignUpForm extends ConsumerWidget {
   Future<List<double?>> loc() async {
     LocationData? locationData = await getLocation();
     if (locationData != null) {
-      return [locationData.latitude, locationData.longitude];
+      return [locationData.longitude, locationData.latitude];
     } else {
       return [];
     }
@@ -171,21 +172,11 @@ class SignUpForm extends ConsumerWidget {
                       _phoneController.text,
                       location,
                       _cpasswordController.text);
-                      if(data['status']=="success"){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: const Text(
-                        'Register Success!!',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.green[300],
-                      margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width / 4,
-                          top: 10,
-                          right: MediaQuery.of(context).size.width / 4,
-                          bottom: MediaQuery.of(context).size.height - 100),
-                      behavior: SnackBarBehavior.floating,
-                    ));
-                      }
+                  print(data);
+                  if (data['status'] == "success") {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Verify()));
+                  }
                 },
                 minWidth: MediaQuery.of(context).size.width,
                 elevation: 0,

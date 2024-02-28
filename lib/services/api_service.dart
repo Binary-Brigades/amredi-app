@@ -9,11 +9,24 @@ String token = mybox.get('TOKEN');
 
 class ApiService {
   static const String baseUrl = "https://amredi-backend.vercel.app/api/v1";
-  // static const String baseUrl = "http://192.168.0.107:5000/api/v1";
+  // static const String baseUrl = "http://192.168.0.103:3000/api/v1";
   static const String createpost = "$baseUrl/post/create";
   static const String posts = "$baseUrl/post/getall";
   static const String loginUrl = "$baseUrl/auth/login";
   static const String registerUrl = "$baseUrl/auth/register";
+  static const String verifyUrl = "$baseUrl/auth/verify-account";
+  static const String profile = "$baseUrl/user/profile";
+  static const String editProfile = "$baseUrl/user/edit-profile";
+  static const String connect = "$baseUrl/user/connect";
+  static const String getpost = "$baseUrl/post/:postid/getPost";
+  static const String likePost = "$baseUrl/post/:postid/like";
+  static const String createGroup = "$baseUrl/group/create";
+  static const String getGroups = "$baseUrl/group/getall";
+  static const String groupAdd = "$baseUrl/group/:groupId/add";
+  static const String createProject = "$baseUrl/project/group/:groupId/create";
+
+
+
 
   Future<List<Post>> getPosts() async {
     Response res = await http
@@ -49,12 +62,6 @@ class ApiService {
       String phoneNumber,
       List<double?> location, // Change the type of location to List<dynamic>
       String confirmPassword) async {
-    // Construct the location map
-    // Map<String, dynamic> locationMap = {
-    //   "type": "Point",
-    //   "coordinates": location
-    // };
-
     // Construct the request body
     Map<String, dynamic> requestBody = {
       "email": email,
@@ -63,8 +70,9 @@ class ApiService {
       "phone_number": phoneNumber,
       "first_name": firstName,
       "last_name": lastName,
-      "location": {"type": "Point", "coordinates": location}
+      "location": '{"type":"Point","coordinates":$location}'
     };
+
     print("request $requestBody");
 
     // Send the POST request
@@ -87,6 +95,15 @@ class ApiService {
       return json.decode(res.body);
     } else {
       throw Exception("error occured");
+    }
+  }
+
+  Future<Map<dynamic, dynamic>> verify(String code) async {
+    Response res = await http.post(Uri.parse(verifyUrl), body: code);
+    if (res.statusCode == 202) {
+      return {"status": "success"};
+    } else {
+      return {"status": "error"};
     }
   }
 }

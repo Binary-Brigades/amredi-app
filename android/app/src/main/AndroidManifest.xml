@@ -9,7 +9,7 @@
 
         android:label="amredi"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/image1">
         <activity
             
             android:name=".MainActivity"
